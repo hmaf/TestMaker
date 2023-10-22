@@ -9,9 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<TaskMakerDbContext>(options =>
+builder.Services.AddDbContext<TestMakerDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TaskMakerDBConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TestMakerDBConnection"));
 });
 
 var app = builder.Build();

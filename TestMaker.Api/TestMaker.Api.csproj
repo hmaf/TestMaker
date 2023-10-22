@@ -21,12 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestMaker.Infra.Data\TestMaker.Infra.Data.csproj" />
-    <ProjectReference Include="..\TestMaker.Infra.IoC\TestMaker.Infra.IoC.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\TestMaker.Infra.Data\TestMaker.Infra.Data.csproj" />
+    <ProjectReference Include="..\TestMaker.Infra.IoC\TestMaker.Infra.IoC.csproj" />
   </ItemGroup>
 
 </Project>

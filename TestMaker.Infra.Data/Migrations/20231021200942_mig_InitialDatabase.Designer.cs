@@ -11,7 +11,7 @@ using TestMaker.Infra.Data;
 
 namespace TestMaker.Infra.Data.Migrations
 {
-    [DbContext(typeof(TaskMakerDbContext))]
+    [DbContext(typeof(TestMakerDbContext))]
     [Migration("20231021200942_mig_InitialDatabase")]
     partial class mig_InitialDatabase
     {

@@ -10,7 +10,7 @@ using TestMaker.Infra.Data;
 
 namespace TestMaker.Infra.Data.Migrations
 {
-    [DbContext(typeof(TaskMakerDbContext))]
+    [DbContext(typeof(TestMakerDbContext))]
     partial class TaskMakerDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

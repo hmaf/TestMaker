@@ -8,9 +8,9 @@ using TestMaker.Domain.Models;
 
 namespace TestMaker.Infra.Data
 {
-    public class TaskMakerDbContext:DbContext
+    public class TestMakerDbContext:DbContext
     {
-        public TaskMakerDbContext(DbContextOptions<TaskMakerDbContext> options): base(options)
+        public TestMakerDbContext(DbContextOptions<TestMakerDbContext> options): base(options)
         {
             
         }

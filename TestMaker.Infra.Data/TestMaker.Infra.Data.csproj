@@ -21,8 +21,4 @@
     <ProjectReference Include="..\TestMaker.Domain\TestMaker.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
 </Project>
