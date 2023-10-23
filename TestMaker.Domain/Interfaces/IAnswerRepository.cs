@@ -9,5 +9,6 @@ namespace TestMaker.Domain.Interfaces
 {
     public interface IAnswerRepository : IGenericRepository<Answer>
     {
+        Task Delete(int id);
     }
 }

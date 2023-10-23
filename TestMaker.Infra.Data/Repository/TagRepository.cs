@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,18 @@ namespace TestMaker.Infra.Data.Repository
         public TagRepository(TestMakerDbContext db):base(db)
         {
             _db = db;
+        }
+
+        public async Task Delete(int id)
+        {
+            var data = await _db.Tag.FirstOrDefaultAsync(obj => obj.Equals(id));
+
+            if (data != null)
+                throw new Exception($"{id} in Tag Table not found");
+
+            data.IsDelete = false;
+            _db.Update(data);
+            await _db.SaveChangesAsync();
         }
     }
 }

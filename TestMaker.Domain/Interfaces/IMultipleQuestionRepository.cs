@@ -9,5 +9,6 @@ namespace TestMaker.Domain.Interfaces
 {
     public interface IMultipleQuestionRepository : IGenericRepository<MultipleQuestion>
     {
+        Task Delete(int id);
     }
 }

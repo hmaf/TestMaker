@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestMaker.Domain.Models.list
 {
-    public class ComplexEntity<T>
+    public class BaseDomainEntity<T>
     {
         public T Id { get; set; }
         public DateTime? CreateDate { get; set; }

@@ -9,5 +9,6 @@ namespace TestMaker.Domain.Interfaces
 {
     public interface ITagRepository : IGenericRepository<Tag>
     {
+        Task Delete(int id);
     }
 }

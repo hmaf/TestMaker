@@ -9,5 +9,6 @@ namespace TestMaker.Domain.Interfaces
 {
     public interface IAcademicBranchRepository : IGenericRepository<AcademicBranch>
     {
+        Task Delete(int id);
     }
 }

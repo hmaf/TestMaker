@@ -9,7 +9,7 @@ using TestMaker.Domain.Models.list;
 
 namespace TestMaker.Domain.Models
 {
-    public class Post : ComplexEntity<int>
+    public class Post : BaseDomainEntity<int>
     {
         [MaxLength(250)]
         public string Title { get; set; }

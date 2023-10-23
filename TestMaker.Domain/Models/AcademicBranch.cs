@@ -8,7 +8,7 @@ using TestMaker.Domain.Models.list;
 
 namespace TestMaker.Domain.Models
 {
-    public class AcademicBranch : SimpleEntity<int>
+    public class AcademicBranch : BaseDomainEntity<int>
     {
         public string Title { get; set; }
         public string ShortDescription { get; set; }

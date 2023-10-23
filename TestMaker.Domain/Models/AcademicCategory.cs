@@ -7,7 +7,7 @@ using TestMaker.Domain.Models.list;
 
 namespace TestMaker.Domain.Models
 {
-    public class AcademicCategory : ComplexEntity<int>
+    public class AcademicCategory : BaseDomainEntity<int>
     {
         public string Title { get; set; }
         public string ShortDescription { get; set; }

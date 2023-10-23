@@ -8,7 +8,7 @@ using TestMaker.Domain.Models.list;
 
 namespace TestMaker.Domain.Models
 {
-    public class Answer : SimpleEntity<int>
+    public class Answer : BaseDomainEntity<int>
     {
         public string Description { get; set; }
         public int Order { get; set; }

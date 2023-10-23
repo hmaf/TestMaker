@@ -7,7 +7,7 @@ using TestMaker.Domain.Models.list;
 
 namespace TestMaker.Domain.Models
 {
-    public class Test : ComplexEntity<int>
+    public class Test : BaseDomainEntity<int>
     {
         public string Title { get; set; }
         public string Icon { get; set; }
