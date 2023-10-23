@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TestMaker.Domain.Interfaces;
@@ -24,26 +25,67 @@ namespace TestMaker.Infra.Data.Repository
             return entity;
         }
 
-        public async Task<bool> Exist(int id)
+        //public async Task<bool> Exists(int id) => await GetById(id) != null;
+
+        public async Task<T> GetById(Expression<Func<T, bool>> predicate, params string[] includes)
         {
-            var entity = await Get(id);
-            return entity != null;
+            var query = _db.Set<T>().AsQueryable();
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.SingleOrDefaultAsync(predicate);
         }
 
-        public async Task<T> Get(int id)
+        public async Task<IReadOnlyList<T>> GetAll(Expression<Func<T, bool>>? where = null, params string[] includes)
         {
-            return await _db.Set<T>().FindAsync(id);
+            var query = _db.Set<T>().AsQueryable();
+
+            if (where != null)
+            {
+                query = query.Where(where);
+            }
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.ToListAsync();
         }
 
-        public async Task<IReadOnlyList<T>> GetAll()
+        public async Task Update(T entity, Expression<Func<T, bool>>? where = null)
         {
-            return await _db.Set<T>().ToListAsync();
-        }
+            if (where != null)
+            {
+                var existingEntity = await _db.Set<T>().SingleOrDefaultAsync(where);
+                if (existingEntity == null)
+                {
+                    // Handle not found
+                    return;
+                }
+                _db.Entry(existingEntity).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                _db.Entry(entity).State = EntityState.Modified;
+            }
 
-        public async Task Update(T entity)
-        {
-            _db.Entry(entity).State = EntityState.Modified;
             await _db.SaveChangesAsync();
+        }
+
+
+        public async Task LoadReference(T entity, Expression<Func<T, object>> reference)
+        {
+            _db.Entry(entity).Reference(reference).Load();
         }
     }
 }
