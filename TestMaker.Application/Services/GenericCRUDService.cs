@@ -28,9 +28,9 @@ namespace TestMaker.Application.Services
             return dtos;
         }
 
-        public async Task<TDto?> GetById(Expression<Func<TModel, bool>> predicateToGetId, params string[] includes)
+        public async Task<TDto?> GetById(Expression<Func<TModel, bool>> predicateToGetId)
         {
-            var entity = await _repo.GetById(predicateToGetId, includes);
+            var entity = await _repo.GetById(predicateToGetId);
             if (entity == null)
             {
                 return null;

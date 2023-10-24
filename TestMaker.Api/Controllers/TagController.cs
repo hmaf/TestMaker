@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 using TestMaker.Application.Dtos.Tag;
 using TestMaker.Application.Interfaces.Common;
+using TestMaker.Domain.Models;
 
 namespace TestMaker.Api.Controllers
 {
@@ -23,6 +25,21 @@ namespace TestMaker.Api.Controllers
             {
                 var data = await _combinedService.TagService.GetAll();
                 return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                Expression<Func<Tag, bool>> predicateToGetId = tag => tag.Id == id;
+                var result = await _combinedService.TagService.GetById(predicateToGetId);
+                return Ok(result);
             }
             catch (Exception ex)
             {
