@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using TestMaker.Infra.Data;
+using TestMaker.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,12 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.RegisterServices();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TestMakerDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestMakerDBConnection"));
 });
+
+
 
 var app = builder.Build();
 

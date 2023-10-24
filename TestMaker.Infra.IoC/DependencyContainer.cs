@@ -1,16 +1,32 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using TestMaker.Application.Interfaces;
+using TestMaker.Application.Interfaces.Common;
+using TestMaker.Application.Profile;
 using TestMaker.Application.Services;
+using TestMaker.Application.Services.Common;
 using TestMaker.Domain.Interfaces;
 using TestMaker.Infra.Data.Repository;
 
 namespace TestMaker.Infra.IoC
 {
-    public class DependencyContainer
+    public static class DependencyContainer
     {
-        public static void RegisterServices(IServiceCollection service)
+        public static IServiceCollection RegisterServices(this IServiceCollection service)
         {
-            //Application Layer
+            // Register AutoMapper
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+                // افزودن پروفایل‌های دیگر اگر نیاز دارید
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            service.AddSingleton(mapper);
+
+            // Application Layer
+            service.AddScoped<ICombinedService, CombinedService>();
             service.AddScoped<ITagService, TagService>();
             service.AddScoped<ITestService, TestService>();
             service.AddScoped<IPostService, PostService>();
@@ -20,7 +36,10 @@ namespace TestMaker.Infra.IoC
             service.AddScoped<IMultipleQuestionService, MultipleQuestionService>();
             service.AddScoped<IAcademicCategoryService, AcademicCategoryService>();
 
-            //Infra Data Layer
+            // Register Generic Repository
+            service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            // Infra Data Layer
             service.AddScoped<ITagRepository, TagRepository>();
             service.AddScoped<ITestRepository, TestRepository>();
             service.AddScoped<IPostRepository, PostRepository>();
@@ -30,6 +49,7 @@ namespace TestMaker.Infra.IoC
             service.AddScoped<IMultipleQuestionRepository, MultipleQuestionRepository>();
             service.AddScoped<IAcademicCategoryRepository, AcademicCategoryRepository>();
 
+            return service;
         }
     }
 }
